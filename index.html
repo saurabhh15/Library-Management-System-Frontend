@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReadON</title>
+    <link rel="icon" type="image/x-icon" href="icon.png">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+    <special-header></special-header>
+
+    <section class="content">
+      <div class="content-container">
+        <div class="content-left">
+          <h1>Turn<br> Reading ON</h1>
+          <p><pre>Discover a world of knowledge with our extensive 
+collection of books, journals, and digital resources. 
+Manage your library experience with our easy-to-use system.
+          </pre>
+          </p>
+          <a href="#" class="btn" id="heroLoginBtn">Get Started!</a>
+        </div>
+        <div class="content-right">
+          <img src="boook.gif" alt="book" />
+        </div>
+      </div>
+    </section>
+
+    <section class="WaveBottom">
+      <div class="wave-bg">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <defs>
+            <linearGradient id="gradient1" gradientTransform="rotate(10)">
+              <stop offset="0%" stop-color="#1E3A8A" />
+              <stop offset="50%" stop-color="#2563EB" />
+              <stop offset="100%" stop-color="#3B82F6" />
+            </linearGradient>
+            <linearGradient id="gradient2" gradientTransform="rotate(10)">
+              <stop offset="0%" stop-color="#2563EB" />
+              <stop offset="50%" stop-color="#3B82F6" />
+              <stop offset="100%" stop-color="#60A5FA" />
+            </linearGradient>
+            <linearGradient id="gradient3" gradientTransform="rotate(10)">
+              <stop offset="0%" stop-color="#3B82F6" />
+              <stop offset="50%" stop-color="#60A5FA" />
+              <stop offset="100%" stop-color="#93C5FD" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#gradient3)" fill-opacity="0.5"
+            d="M0,224L40,208C80,192,160,160,240,152C320,144,400,164,480,154C560,144,640,104,720,114C800,124,880,188,960,214C1040,240,1120,232,1200,210C1280,188,1360,156,1440,140L1440,0L0,0Z">
+          </path>
+
+          <path fill="url(#gradient2)" fill-opacity="0.7" d="M0,208L40,192C80,176,160,144,240,136C320,128,400,148,480,138C560,128
+          ,640,88,720,98C800,108,880,172,960,198C1040,224,1120,216,1200,194C1280,172,1360,140,1440,124L1440,0L0,0Z">
+          </path>
+
+          <path fill="url(#gradient1)" fill-opacity="1"
+            d="M0,48L40,64C80,80,160,112,240,117C320,122,400,102,480,112C560,122,640,162,720,152C800,142,880,78,960,52C1040,26,1120,36,1200,58C1280,80,1360,112,1440,128L1440,0L0,0Z">
+          </path>
+        </svg>
+      </div>
+  </section>
+
+    <section class="feature">
+      <div class="container">
+        <h2 class="section-title">Our Features</h2>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h3 class="feature-title">Extensive Collection</h3>
+            <p class="feature-desc">Access thousands of books, journals, and research papers from various disciplines.</p>
+          </div>
+
+          <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 class="feature-title">Digital Resources</h3>
+                    <p class="feature-desc">Enjoy our vast collection of e-books, audiobooks, and online learning resources.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">24/7 Access</h3>
+                    <p class="feature-desc">Our digital library is available round the clock from anywhere in the world.</p>
+            </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="more-features">
+      <div class="container">
+        <h2 class="section-title">From Our Features</h2>
+
+        <div class="feature-tabs">
+          <button class="tab-btn active" data-tab="research">Research Support</button>
+          <button class="tab-btn" data-tab="study">Study Spaces</button>
+          <button class="tab-btn" data-tab="events">Events & Workshops</button>
+          <button class="tab-btn" data-tab="technology">Technology Lending</button>
+        </div>
+
+        <div class="tab-content active" id="research">
+                <div class="feature-highlight">
+                    <div class="feature-img">
+                        <img src="research.png" alt="research">
+                    </div>
+                    <div class="feature-detail">
+                        <h3>Research Support Services</h3>
+                        <p>Our library offers comprehensive research support to help you with your personal projects. Our expert librarians are available to assist you in finding the right resources.
+                        </p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> One-on-one research consultations</li>
+                            <li><i class="fas fa-check-circle"></i> Database search assistance</li>
+                            <li><i class="fas fa-check-circle"></i> Citation and bibliography help</li>
+                            <li><i class="fas fa-check-circle"></i> Access to specialized research databases</li>
+                        </ul>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+              </div>
+        </div>
+        <div class="tab-content" id="study">
+                <div class="feature-highlight">
+                    <div class="feature-img">
+                        <img src="study.jpg" alt="study">
+                    </div>
+                    <div class="feature-detail">
+                        <h3>Modern Study Spaces</h3>
+                        <p>Our library offers a variety of study environments to suit different needs, from quiet individual study carrels to collaborative group workspaces.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Silent study zones</li>
+                            <li><i class="fas fa-check-circle"></i> Group study rooms</li>
+                            <li><i class="fas fa-check-circle"></i> Comfortable reading lounges</li>
+                            <li><i class="fas fa-check-circle"></i> 24/7 access study areas</li>
+                        </ul>
+                        <a href="#" class="btn">Reserve a Space</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="events">
+                <div class="feature-highlight">
+                    <div class="feature-img">
+                        <img src="feature.jpg" alt="feature">
+                    </div>
+                    <div class="feature-detail">
+                        <h3>Events & Workshops</h3>
+                        <p>Join our regular events and workshops designed to enhance your learning experience and connect with other readers and researchers.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Author talks and book signings</li>
+                            <li><i class="fas fa-check-circle"></i> Research methodology workshops</li>
+                            <li><i class="fas fa-check-circle"></i> Digital literacy training</li>
+                            <li><i class="fas fa-check-circle"></i> Children's reading hours</li>
+                        </ul>
+                        <a href="#" class="btn">View Events Calendar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="technology">
+                <div class="feature-highlight">
+                    <div class="feature-img">
+                        <img src="tech.jpg" alt="tech">
+                    </div>
+                    <div class="feature-detail">
+                        <h3>Technology Lending Program</h3>
+                        <p>We offer a variety of technology equipment for loan to support your learning and research needs.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Laptops and tablets</li>
+                            <li><i class="fas fa-check-circle"></i> Digital cameras and audio recorders</li>
+                            <li><i class="fas fa-check-circle"></i> Scientific calculators</li>
+                            <li><i class="fas fa-check-circle"></i> VR equipment for immersive learning</li>
+                        </ul>
+                        <a href="#" class="btn">Browse Equipment</a>
+                    </div>
+              </div>
+      </div>
+    </section>
+    
+    <section class="news">
+      <div class="container">
+        <h2 class="section-title">Latest News & Announcements</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3 class="feature-title">
+              <i class="fas fa-bullhorn"></i> New Digital Journals
+            </h3>
+            <p class="feature-desc">
+              We’ve added 500+ new digital journals in technology and
+              management. Explore them today!
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3 class="feature-title">
+              <i class="fas fa-calendar"></i> Library Orientation
+            </h3>
+            <p class="feature-desc">
+              Join our orientation program for first-year students on 15th Sept.
+              Learn how to use ReadON effectively.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3 class="feature-title">
+              <i class="fas fa-trophy"></i> Quiz Competition
+            </h3>
+            <p class="feature-desc">
+              Participate in the annual quiz competition hosted by ReadON
+              Library. Prizes worth ₹10,000 await!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <special-footer></special-footer>
+  <script src="app.js"></script>
+  </body>
+</html>

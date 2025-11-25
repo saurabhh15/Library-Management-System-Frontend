@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReadON</title>
+    <link rel="icon" href="icon.png" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="student.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-container">
+          <img src="logo.png" alt="Library Logo" class="logo" />
+        </div>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-item active">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="menu-item">
+          <i class="fas fa-book"></i>
+          <span>Book Catalog</span>
+        </div>
+        <div class="menu-item">
+          <i class="fas fa-history"></i>
+          <span>My Borrowing History</span>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-pen"></i>
+          <span>Blogs</span>
+        </div>
+        <div class="menu-item">
+          <i class="fas fa-user-cog"></i>
+          <span>Manage My Account</span>
+        </div>
+        <button class="logout-btn" onclick="adminLogout()">➜ Logout</button>
+      </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" class="section">
+      <div class="content">
+        <div class="header">
+          <img src="dashBG.jpg" alt="" />
+          <h1 id="headingdash">Dashboard</h1>
+          <button class="toggle-btn" id="toggleSidebar">
+            <i class="fas fa-bars"></i> Menu
+          </button>
+        </div>
+      </div>
+      <div class="dashboard">
+        <h2>Library Overview</h2>
+        <p>
+          Welcome to the Library Management System. Here you can manage books,
+          equipment, and track your borrowing history.
+        </p>
+
+        <div class="stats">
+          <div class="stat-card">
+            <h3>Books Borrowed</h3>
+            <p>12</p>
+          </div>
+          <div class="stat-card">
+            <h3>Equipment Reserved</h3>
+            <p>3</p>
+          </div>
+          <div class="stat-card">
+            <h3>Pending Returns</h3>
+            <p>2</p>
+          </div>
+        </div>
+        <!-- Monthly -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <div id="Contain-attendence">
+          <!-- Left Card -->
+          <div class="overview-card">
+            <h2>Attendance Overview</h2>
+            <p>Your reading consistency</p>
+
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-title">This Week</div>
+                <div class="stat-value">7/7</div>
+                <div class="stat-title">Days active</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-title">This Month</div>
+                <div class="stat-value">28/30</div>
+                <div class="stat-title">Days active</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-title">Avg. Session</div>
+                <div class="stat-value">58</div>
+                <div class="stat-title">Minutes</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-title">Best Streak</div>
+                <div class="stat-value">45</div>
+                <div class="stat-title">Days</div>
+              </div>
+            </div>
+
+            <div class="progress-containers">
+              <div class="progress-texts">
+                <span>Monthly Consistency</span>
+                <span>93%</span>
+              </div>
+              <div class="progress-bars">
+                <div class="progress-fills"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Card -->
+          <div class="report-card">
+            <div class="report-header">
+              <div>
+                <div class="report-title">Weekly Attendance Report</div>
+                <div style="color: #6b7280; font-size: 13px">
+                  Nov 7 - Nov 13, 2025
+                </div>
+              </div>
+              <div class="perfect-week">✅ Perfect Week!</div>
+            </div>
+
+            <div class="stats-row">
+              <div class="mini-stat">
+                <h4>Total Time</h4>
+                <p>530</p>
+                <small>minutes</small>
+              </div>
+              <div class="mini-stat">
+                <h4>Avg/Day</h4>
+                <p>76</p>
+                <small>minutes</small>
+              </div>
+              <div class="mini-stat">
+                <h4>Sessions</h4>
+                <p>17</p>
+                <small>total</small>
+              </div>
+              <div class="mini-stat">
+                <h4>Active Days</h4>
+                <p>7/7</p>
+                <small>days</small>
+              </div>
+            </div>
+
+            <canvas id="attendanceChart"></canvas>
+
+            <div class="daily-breakdown">
+              <div>
+                <div class="day">
+                  <div class="dot"></div>
+                  Mon
+                </div>
+                <span>2 sessions — 65 min</span>
+              </div>
+              <div>
+                <div class="day">
+                  <div class="dot"></div>
+                  Tue
+                </div>
+                <span>3 sessions — 82 min</span>
+              </div>
+              <div>
+                <div class="day">
+                  <div class="dot"></div>
+                  Wed
+                </div>
+                <span>1 session — 45 min</span>
+              </div>
+              <div>
+                <div class="day">
+                  <div class="dot"></div>
+                  Thu
+                </div>
+                <span>3 sessions — 95 min</span>
+              </div>
+              <div>
+                <div class="day">
+                  <div class="dot"></div>
+                  Fri
+                </div>
+                <span>2 sessions — 58 min</span>
+              </div>
+              <div>
+                <div class="day">
+                  <div class="dot"></div>
+                  Sat
+                </div>
+                <span>4 sessions — 110 min</span>
+              </div>
+              <div>
+                <div class="day">
+                  <div class="dot"></div>
+                  Sun
+                </div>
+                <span>2 sessions — 75 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Montly -->
+
+        <!-- Graph -->
+        <div id="GraphCards">
+          <!-- Graph -->
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+          <div class="chart-card">
+            <div class="chart-titles">Monthly Progress</div>
+            <canvas id="progressChart"></canvas>
+          </div>
+          <!-- Graph -->
+
+          <!-- weekly charts -->
+          <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+          <div class="chart-cards">
+            <div class="chart-header">
+              <div>
+                <h1 class="chart-title">Reading Progress</h1>
+                <p class="chart-subtitle">Hours read vs target hours</p>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <span class="legend-dot legend-dot-actual"></span>
+                  <span class="legend-text">Actual</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot legend-dot-target"></span>
+                  <span class="legend-text">Target</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart Canvas -->
+            <div class="chart-container">
+              <canvas id="readingProgressChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- Graph -->
+
+        <div class="readprog_container">
+          <h2 class="readprog_title">📚 Reading Book Progress</h2>
+
+          <div class="readprog_bookList" id="readprog_bookList"></div>
+
+          <div class="readprog_buttons">
+            <button class="readprog_btnOutline" id="readprog_quickBtn">
+              Quick Log
+            </button>
+
+            <button class="readprog_btnPrimary" id="readprog_updateBtn">
+              Update Progress
+            </button>
+          </div>
+        </div>
+
+        <!-- Add Book Modal -->
+        <div class="readprog_modal" id="readprog_quickModal">
+          <div class="readprog_modalContent">
+            <h3>➕ Add New Book</h3>
+
+            <label>Book Name:</label>
+            <input type="text" id="readprog_newName" />
+
+            <label>Book Image URL:</label>
+            <input type="text" id="readprog_newImg" />
+
+            <label>Total Pages:</label>
+            <input type="number" id="readprog_newPages" />
+
+            <div class="readprog_modalFooter">
+              <button class="readprog_btnOutline" id="readprog_closeQuick">
+                Cancel
+              </button>
+              <button class="readprog_btnPrimary" id="readprog_saveQuick">
+                Add Book
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Update Modal -->
+        <div class="readprog_modal" id="readprog_updateModal">
+          <div class="readprog_modalContent">
+            <h3>✏ Update Progress</h3>
+
+            <label>Select Book:</label>
+            <select id="readprog_selectBook"></select>
+
+            <label>Hours Read (add):</label>
+            <input type="number" id="readprog_addHours" />
+
+            <label>Pages Read (add):</label>
+            <input type="number" id="readprog_addPages" />
+
+            <div class="readprog_modalFooter">
+              <button class="readprog_btnOutline" id="readprog_closeUpdate">
+                Cancel
+              </button>
+              <button class="readprog_btnPrimary" id="readprog_saveUpdate">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="announcements-section">
+          <div class="announcements-card">
+            <h2>📢 Announcements</h2>
+
+            <div class="announcement">
+              <div class="announcement-title">
+                New Feature: Reading Groups
+                <span class="new-badge">New</span>
+              </div>
+              <p>
+                Join or create reading groups to discuss books with fellow
+                readers.
+              </p>
+              <small>1 day ago</small>
+            </div>
+
+            <div class="announcement">
+              <div class="announcement-title">Winter Reading Challenge</div>
+              <p>Complete 10 books this winter and earn exclusive badges.</p>
+              <small>3 days ago</small>
+            </div>
+            <div class="view-all-Anno">
+              <a href="#" class="view-all">View All Announcements</a>
+            </div>
+          </div>
+
+          <!-- annual book -->
+          <div id="custom-alert" class="alert-box"></div>
+          <div class="dashboard-cardss">
+            <h1
+              style="
+                font-size: 24px;
+                font-weight: 700;
+                color: #1f2937;
+                margin-bottom: 24px;
+              "
+            >
+              Annual Reading Goal
+            </h1>
+            <div class="dashboard-contentss">
+              <div class="pie-chart-wrapper">
+                <div id="pie-chart" class="pie-chart">
+                  <div class="pie-chart-inner">
+                    <span id="chart-percentage" class="chart-percentage-text"
+                      >0%</span
+                    >
+                    <div class="chart-label">Complete</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metrics-area">
+                <div class="metrics-header">
+                  <div style="text-align: left">
+                    <div class="metric-title">Books Read</div>
+                    <div id="books-read-val" class="metric-value">0</div>
+                  </div>
+                  <div style="text-align: right">
+                    <div class="metric-title">Target</div>
+                    <div
+                      id="target-val"
+                      class="metric-value"
+                      style="color: #1f2937"
+                    >
+                      0
+                    </div>
+                  </div>
+                </div>
+
+                <div class="progress-section">
+                  <div class="progress-label">
+                    Books remaining: <span id="books-remaining-val">0</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div
+                      id="progress-bar-fill"
+                      class="progress-bar-fill"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="button-group">
+                  <button
+                    onclick="openModal('modal-update-goal')"
+                    class="button button-primary"
+                  >
+                    Update Goal
+                  </button>
+                  <button
+                    onclick="openModal('modal-mark-complete')"
+                    class="button button-secondary"
+                  >
+                    Mark Book Complete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="modal-update-goal" class="modal">
+            <div class="modal-card">
+              <div class="modal-header">
+                <h2>
+                  <svg
+                    style="width: 24px; height: 24px"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                    ></path>
+                  </svg>
+                  Update Reading Goal
+                </h2>
+                <button
+                  onclick="closeModal('modal-update-goal')"
+                  class="modal-close-button"
+                >
+                  <svg
+                    style="width: 24px; height: 24px"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="modal-content">
+                <p style="color: var(--gray-text); margin-bottom: 24px">
+                  Manage your reading goals
+                </p>
+
+                <div class="modal-tabs">
+                  <div class="tab-item active-orange">
+                    <div class="tab-item-icon-text">
+                      <svg
+                        class="tab-item-icon"
+                        style="width: 24px; height: 24px"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                        ></path>
+                      </svg>
+                      <span class="tab-item-text">Update Goal</span>
+                    </div>
+                  </div>
+                  <button onclick="swapToMarkComplete()" class="tab-item">
+                    <div class="tab-item-icon-text">
+                      <svg
+                        class="tab-item-icon"
+                        style="width: 24px; height: 24px"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6.253v13m0-13C10.832 5.467 9.5 5 8 5c-4 0-4 4-4 8s0 8 4 8c3.5 0 3.864-1.253 4-3l.162-.647m0 0l-1.35 1.35"
+                        ></path>
+                      </svg>
+                      <span class="tab-item-text">Mark Complete</span>
+                    </div>
+                  </button>
+                </div>
+
+                <form onsubmit="event.preventDefault(); handleUpdateGoal();">
+                  <label for="update-books-completed">Books Completed *</label>
+                  <input
+                    type="number"
+                    id="update-books-completed"
+                    required
+                    value="0"
+                    min="0"
+                  />
+
+                  <label for="update-target-books">Target Books *</label>
+                  <input
+                    type="number"
+                    id="update-target-books"
+                    required
+                    style="margin-bottom: 24px"
+                    value="0"
+                    min="1"
+                  />
+
+                  <div class="modal-actions">
+                    <button
+                      type="button"
+                      onclick="closeModal('modal-update-goal')"
+                      class="button button-secondary modal-button-cancel"
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" class="button button-primary">
+                      Update Goal
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="modal-mark-complete" class="modal">
+            <div class="modal-card">
+              <div class="modal-header">
+                <h2>
+                  <svg
+                    style="width: 24px; height: 24px"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6.253v13m0-13C10.832 5.467 9.5 5 8 5c-4 0-4 4-4 8s0 8 4 8c3.5 0 3.864-1.253 4-3l.162-.647m0 0l-1.35 1.35"
+                    ></path>
+                  </svg>
+                  Mark Book Complete
+                </h2>
+                <button
+                  onclick="closeModal('modal-mark-complete')"
+                  class="modal-close-button"
+                >
+                  <svg
+                    style="width: 24px; height: 24px"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="modal-content" style="text-align: center">
+                <p style="color: var(--gray-text); margin-bottom: 24px">
+                  Manage your reading goals
+                </p>
+
+                <div class="modal-tabs">
+                  <button onclick="swapToUpdateGoal()" class="tab-item">
+                    <div class="tab-item-icon-text">
+                      <svg
+                        class="tab-item-icon"
+                        style="width: 24px; height: 24px"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                        ></path>
+                      </svg>
+                      <span class="tab-item-text">Update Goal</span>
+                    </div>
+                  </button>
+                  <div class="tab-item active-orange">
+                    <div class="tab-item-icon-text">
+                      <svg
+                        class="tab-item-icon"
+                        style="width: 24px; height: 24px"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6.253v13m0-13C10.832 5.467 9.5 5 8 5c-4 0-4 4-4 8s0 8 4 8c3.5 0 3.864-1.253 4-3l.162-.647m0 0l-1.35 1.35"
+                        ></path>
+                      </svg>
+                      <span class="tab-item-text">Mark Complete</span>
+                    </div>
+                  </div>
+                </div>
+
+                <svg class="star-icon" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  />
+                </svg>
+
+                <h3
+                  style="
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #1f2937;
+                    margin-bottom: 8px;
+                  "
+                >
+                  Mark Book as Completed
+                </h3>
+                <p
+                  style="
+                    color: var(--gray-text);
+                    font-size: 14px;
+                    margin-bottom: 24px;
+                  "
+                >
+                  Congratulations on finishing another book! This will add to
+                  your annual goal progress.
+                </p>
+
+                <p id="mark-complete-text" class="mark-complete-message">
+                  <strong>0</strong> books completed &rarr;
+                  <strong>1</strong> books (Target: <strong>0</strong>)
+                </p>
+
+                <div class="modal-actions">
+                  <button
+                    type="button"
+                    onclick="closeModal('modal-mark-complete')"
+                    class="button modal-button-cancel"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onclick="handleMarkComplete()"
+                    class="button button-secondary"
+                    style="
+                      color: white;
+                      background-color: var(--primary-blue);
+                      border-color: var(--primary-blue);
+                      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.4);
+                    "
+                  >
+                    Mark Complete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Book Management Section -->
+    <div id="bookManagementSection" class="section" style="display: none">
+      <div class="content">
+        <div class="header">
+          <img src="dashBG.jpg" alt="" />
+          <h1 id="headingdash">Book Catalog</h1>
+          <button class="toggle-btn" id="toggleSidebar">
+            <i class="fas fa-bars"></i> Menu
+          </button>
+        </div>
+      </div>
+
+      <div class="Catalog-section">
+        <div id="greenPopup" class="popup-green"></div>
+        <div id="redPopup" class="popup-red"></div>
+        <div id="cartModal" class="fav-modal">
+          <div class="fav-content">
+            <span id="closeCart" class="close-cross">✖</span>
+            <h2>Your Cart</h2>
+            <div class="modal-line"></div>
+
+            <div id="cartList" class="modal-scroll"></div>
+          </div>
+        </div>
+
+        <div id="favModal" class="fav-modal">
+          <div class="fav-content">
+            <h2>Favourite Books</h2>
+            <div class="modal-line"></div>
+
+            <div id="favList" class="modal-scroll"></div>
+            <span id="closeFav" class="close-cross">✖</span>
+          </div>
+        </div>
+
+        <h1 id="catalog-heading">Book Catalog</h1>
+        <button id="openFavBtn">❤️</button>
+        <button id="openCartBtn">🛒</button>
+
+        <div class="search-area">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search books, authors, or ISBN..."
+          />
+
+          <select
+            id="genreFilter"
+            style="
+              padding: 12px 15px;
+              border-radius: 10px;
+              border: 1px solid #ccc;
+              font-size: 16px;
+            "
+          >
+            <option value="">All Genres</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Classic">Classic</option>
+            <option value="Self-help">Self-help</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Romance">Romance</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Biography">Biography</option>
+            <option value="Finance">Finance</option>
+          </select>
+
+          <div class="filter-btns">
+            <button data-filter="year">Year</button>
+            <button data-filter="rating">Rating</button>
+          </div>
+        </div>
+        <div class="books" id="booksContainer"></div>
+      </div>
+    </div>
+
+    <div id="borrowingHistory" class="section" style="display: none">
+      <div class="content">
+        <div class="header">
+          <img src="dashBG.jpg" alt="" />
+          <h1 id="headingdash">My Borrowing History</h1>
+          <button class="toggle-btn" id="toggleSidebar">
+            <i class="fas fa-bars"></i> Menu
+          </button>
+        </div>
+      </div>
+      <div class="borrowing">
+        <div class="content-area">
+          <div class="two-column">
+            <div class="card">
+              <h2 class="section-title">
+                <span style="font-size: 28px; margin-right: 10px">📚</span>
+                Currently Borrowed Books
+              </h2>
+
+              <div class="book-list">
+                <!-- Book 1: Introduction to Algorithms -->
+                <div class="book-item">
+                  <div class="book-details">
+                    <div class="book-cover cover-algorithms">
+                      <!-- Placeholder Image URL matching the title's theme -->
+                      <img
+                        src="https://m.media-amazon.com/images/I/61O5SsbL8HL.jpg"
+                        alt="Book Cover"
+                      />
+                    </div>
+                    <div class="book-info">
+                      <h4>Introduction to Algorithms</h4>
+                      <p>Thomas H. Cormen | CS Department</p>
+                    </div>
+                  </div>
+                  <span class="due-date safe">Due: Nov 20</span>
+                </div>
+
+                <!-- Book 2: Clean Code -->
+                <div class="book-item">
+                  <div class="book-details">
+                    <div class="book-cover cover-cleancode">
+                      <img
+                        src="https://m.media-amazon.com/images/I/81Rnac2Fq+L._AC_UF1000,1000_QL80_.jpg"
+                        alt="Book Cover"
+                      />
+                    </div>
+                    <div class="book-info">
+                      <h4>Clean Code</h4>
+                      <p>Robert C. Martin | Programming</p>
+                    </div>
+                  </div>
+                  <span class="due-date warning">Due: Nov 15</span>
+                </div>
+
+                <!-- Book 3: Design Patterns -->
+                <div class="book-item">
+                  <div class="book-details">
+                    <div class="book-cover cover-designpatterns">
+                      <img
+                        src="https://m.media-amazon.com/images/I/71P+4DslKmL._AC_UF1000,1000_QL80_.jpg"
+                        alt="Book Cover"
+                      />
+                    </div>
+                    <div class="book-info">
+                      <h4>Game of Thrones</h4>
+                      <p>George R. R. Martin | Novel,Fantasy Fiction</p>
+                    </div>
+                  </div>
+                  <span class="due-date danger">Due: Nov 13</span>
+                </div>
+              </div>
+              <!-- /book-list -->
+
+              <button class="btn btn-primary" onclick="viewAllBooks()">
+                View All Borrowed Books
+              </button>
+            </div>
+
+            <div class="cards">
+              <h2 class="section-title">📢 Recent Activity</h2>
+              <div class="activity-item">
+                <div class="activity-icon blue">📖</div>
+                <div class="activity-details">
+                  <h4>Book Borrowed</h4>
+                  <p>You borrowed "Clean Code" - Nov 8, 2025</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon green">✅</div>
+                <div class="activity-details">
+                  <h4>Book Returned</h4>
+                  <p>You returned "Python Crash Course" - Nov 5, 2025</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon orange">💻</div>
+                <div class="activity-details">
+                  <h4>Equipment Reserved</h4>
+                  <p>Laptop #245 reserved - Nov 3, 2025</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon blue">🔖</div>
+                <div class="activity-details">
+                  <h4>Book Bookmarked</h4>
+                  <p>Added "Machine Learning" to wishlist - Nov 1, 2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-header">
+              <h2>Borrowing Records</h2>
+              <button class="export-btn" onclick="exportHistory()">
+                📥 Export to CSV
+              </button>
+            </div>
+
+            <div class="records-container" id="records-container">
+              <!-- Records will be inserted here -->
+            </div>
+
+            <div class="pagination" id="pagination">
+              <!-- Pagination buttons will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="blogSection" class="section" style="display: none">
+      <div class="content">
+        <div class="header">
+          <img src="dashBG.jpg" alt="" />
+          <h1 id="headingdash">Blogs</h1>
+          <button class="toggle-btn" id="toggleSidebar">
+            <i class="fas fa-bars"></i> Menu
+          </button>
+        </div>
+      </div>
+      <div class="blogSection">
+        <special-blogs></special-blogs>
+      </div>
+    </div>
+
+    <div id="UserManage" class="section" style="display: none">
+      <div class="content">
+        <div class="header">
+          <img src="dashBG.jpg" alt="" />
+          <h1 id="headingdash">Manage My Account</h1>
+          <button class="toggle-btn" id="toggleSidebar">
+            <i class="fas fa-bars"></i> Menu
+          </button>
+        </div>
+      </div>
+      <div class="userManage-Container">
+        <div class="manageContainer">
+          <div id="successAlert" class="alert alert-success"></div>
+          <div id="errorAlert" class="alert alert-error"></div>
+
+          <div class="profile-box">
+            <img
+              id="profileImage"
+              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+              class="profile-img"
+            />
+
+            <div class="profile-content">
+              <h2 id="displayName">Saurabh Kumar</h2>
+              <p id="displayEmail">saurabh123@gmail.com</p>
+            </div>
+
+            <input type="file" id="imgInput" style="display: none" />
+            <button
+              class="upload-btn"
+              onclick="document.getElementById('imgInput').click()"
+            >
+              Change Photo
+            </button>
+          </div>
+          <div class="Account-section">
+            <h2>👤 Account Information</h2>
+
+            <label>Full Name</label>
+            <input type="text" id="nameInput" value="Saurabh Kumar" />
+
+            <label>Email Address</label>
+            <input type="email" id="emailInput" value="saurabh123@gmail.com" />
+
+            <label>Phone Number</label>
+            <input type="text" id="phoneInput" value="9876543210" />
+
+            <label>Date of Birth</label>
+            <input type="date" id="dob" value="1990-05-15" required />
+
+            <button class="save-btn" onclick="saveInfo()">Save Changes</button>
+          </div>
+          <div class="account-card">
+            <div class="card-header">
+              <div class="card-icon icon-green">📋</div>
+              <h2>Account Details</h2>
+            </div>
+            <div class="account-info">
+              <div class="info-row">
+                <span class="info-label">Member ID</span>
+                <span class="info-value">LIB-2023-1547</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Member Since</span>
+                <span class="info-value">January 15, 2023</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Account Status</span>
+                <span class="status-badge status-active">Active</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Membership Type</span>
+                <span class="info-value membership-premium">Premium ⭐</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Books Borrowed (Total)</span>
+                <span class="info-value">47</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Current Borrows</span>
+                <span class="info-value current-borrows">12</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Outstanding Fines</span>
+                <span class="info-value fines-amount">0.00</span>
+              </div>
+            </div>
+            <button
+              class="btn btn-secondary"
+              onclick="refreshAccountDetails()"
+              style="margin-top: 20px; width: 100%"
+            >
+              🔄 Refresh Details
+            </button>
+          </div>
+          <div class="account-card">
+            <div class="card-header">
+              <div class="card-icon icon-orange">🔒</div>
+              <h2>Change Password</h2>
+            </div>
+            <form id="passwordForm">
+              <div class="form-group">
+                <label>Current Password</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="currentPassword" required />
+                  <span
+                    class="toggle-password"
+                    onclick="togglePassword('currentPassword')"
+                    >👁️</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label>New Password</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="newPassword" required />
+                  <span
+                    class="toggle-password"
+                    onclick="togglePassword('newPassword')"
+                    >👁️</span
+                  >
+                </div>
+                <div class="password-strength" id="passwordStrength"></div>
+              </div>
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="confirmPassword" required />
+                  <span
+                    class="toggle-password"
+                    onclick="togglePassword('confirmPassword')"
+                    >👁️</span
+                  >
+                </div>
+              </div>
+              <div class="setting-group">
+                <div class="group-title">Account Status</div>
+                <p style="color: var(--gray-text)">
+                  To disable or delete your account, please contact system
+                  administrator for security reasons.
+                </p>
+                <button
+                  type="button"
+                  class="btn-second"
+                  style="margin-top: 15px"
+                >
+                  Contact Admin for Deletion
+                </button>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <span class="btn-text">Update Password</span>
+                <span class="btn-loader">Updating...</span>
+              </button>
+            </form>
+          </div>
+          <div class="account-card">
+            <div class="card-header">
+              <div class="card-icon icon-purple">🔔</div>
+              <h2>Notification Preferences</h2>
+            </div>
+            <form id="notificationForm">
+              <div class="notification-item">
+                <input type="checkbox" id="emailNotif" checked />
+                <label for="emailNotif">
+                  <strong>Email notifications</strong>
+                  <small>Get reminders for due dates via email</small>
+                </label>
+              </div>
+              <div class="notification-item">
+                <input type="checkbox" id="smsNotif" checked />
+                <label for="smsNotif">
+                  <strong>SMS reminders</strong>
+                  <small>Receive text message alerts</small>
+                </label>
+              </div>
+              <div class="notification-item">
+                <input type="checkbox" id="newBooksNotif" checked />
+                <label for="newBooksNotif">
+                  <strong>New book arrivals</strong>
+                  <small>Be notified about new additions</small>
+                </label>
+              </div>
+              <div class="notification-item">
+                <input type="checkbox" id="eventNotif" />
+                <label for="eventNotif">
+                  <strong>Library events</strong>
+                  <small>Get updates about workshops and events</small>
+                </label>
+              </div>
+              <div class="notification-item">
+                <input type="checkbox" id="reservationNotif" checked />
+                <label for="reservationNotif">
+                  <strong>Reservation availability</strong>
+                  <small>Alert when reserved items are ready</small>
+                </label>
+              </div>
+              <button type="submit" class="btn btn-success">
+                <span class="btn-text">Save Preferences</span>
+                <span class="btn-loader">Saving...</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+    <script src="student.js"></script>
+  </body>
+</html>

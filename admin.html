@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="icon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="Admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <title>ReadON</title>
+  </head>
+
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-container">
+          <img src="logo.png" alt="Library Logo" class="logo" />
+        </div>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-item active">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="menu-item">
+          <i class="fas fa-book"></i>
+          <span>Manage Book </span>
+        </div>
+        <div class="menu-item" id="Blog">
+          <i class="fa-solid fa-pen"></i>
+          <span>Manage Blogs</span>
+        </div>
+        <div class="menu-item">
+          <i class="fas fa-history"></i>
+          <span>Manage Users</span>
+        </div>
+        <div class="menu-item">
+          <i class="fas fa-user-cog"></i>
+          <span>Manage My Account</span>
+        </div>
+        <button class="logout-btn" onclick="adminLogout()">➜ Logout</button>
+      </div>
+    </div>
+    <div id="main-content">
+      <div id="dashboard-section" class="app-section">
+        <div id="dashboardADminpimg">
+          <img src="dashBG.jpg" alt="waves-dg" />
+        </div>
+        <div id="dashboardADminptxt">
+          <h1 id="HEadingDAsh">Dashboard</h1>
+        </div>
+
+        <div id="DAshboardcardsArea">
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Total Books</div>
+                <div class="stat-icon icon-books">
+                  <i class="fas fa-book"></i>
+                </div>
+              </div>
+              <div class="stat-value">5,247</div>
+              <div class="stat-change change-positive">
+                <i class="fas fa-arrow-up"></i> 124 added this month
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Equipment Items</div>
+                <div class="stat-icon icon-equipment">
+                  <i class="fas fa-laptop"></i>
+                </div>
+              </div>
+              <div class="stat-value">382</div>
+              <div class="stat-change change-positive">
+                <i class="fas fa-arrow-up"></i> 15 added this month
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Active Users</div>
+                <div class="stat-icon icon-users">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              <div class="stat-value">1,538</div>
+              <div class="stat-change change-positive">
+                <i class="fas fa-arrow-up"></i> 42 new this month
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Borrowed Items</div>
+                <div class="stat-icon icon-borrowed">
+                  <i class="fas fa-clipboard-list"></i>
+                </div>
+              </div>
+              <div class="stat-value">684</div>
+              <div class="stat-change change-negative">
+                <i class="fas fa-arrow-down"></i> 12 overdue
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Section -->
+          <div class="charts-section">
+            <div class="chart-card">
+              <div class="chart-header">
+                <div class="chart-title">Borrowing Activity</div>
+                <select>
+                  <option>Last 7 Days</option>
+                  <option>Last 30 Days</option>
+                  <option>Last 90 Days</option>
+                </select>
+              </div>
+              <div class="chart-container">
+                <canvas id="borrowingChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-cards">
+              <div class="chart-header">
+                <div class="chart-title">Collection Distribution</div>
+              </div>
+              <div class="chart-container">
+                <canvas id="collectionChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-row">
+            <!--  Expandable Quick  Panel -->
+            <div class="quick-card">
+              <!-- LEFT SIDE OPTIONS -->
+              <div class="quick-left">
+                <h3 class="quick-title">Quick Actions</h3>
+
+                <div class="quick-option" id="opt-blog">
+                  <div class="q-icon blog">
+                    <i class="fa-solid fa-pen"></i>
+                  </div>
+                  <div class="q-text">
+                    <h4>New Blog Post</h4>
+                    <p>Write an Blog quickly.</p>
+                  </div>
+                </div>
+
+                <div class="quick-option" id="opt-book">
+                  <div class="q-icon book">
+                    <i class="fa-solid fa-book"></i>
+                  </div>
+                  <div class="q-text">
+                    <h4>Add New Book</h4>
+                    <p>Upload details quickly.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT EXPANDING PANEL -->
+              <div class="quick-right">
+                <div class="expand-panel" id="expand-blog">
+                  <div class="illus">
+                    <i class="fa-solid fa-pen-nib illu-icon"></i>
+                  </div>
+                  <h2>Write a Blog</h2>
+                  <p>
+                    Share announcements, stories, updates and more with your
+                    library members.
+                  </p>
+                </div>
+
+                <div class="expand-panel" id="expand-book">
+                  <div class="illus">
+                    <i
+                      class="fa-solid fa-book-open illu-icon"
+                      style="color: #16a34a"
+                    ></i>
+                  </div>
+                  <h2>Add a New Book</h2>
+                  <p>
+                    Add book cover, author, genres, languages, and description
+                    in seconds.
+                  </p>
+                </div>
+              </div>
+              <!-- MODAL OVERLAY -->
+              <div id="modal-overlay" class="modal-overlay"></div>
+
+              <!-- BLOG MODAL -->
+              <div id="blog-modal" class="modal-box">
+                <h2>Create New Blog Post</h2>
+                <form class="modal-form">
+                  <label>Blog Title</label>
+                  <input type="text" placeholder="Enter blog title" required />
+
+                  <label>Category</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Announcement, Review"
+                    required
+                  />
+
+                  <label>Thumbnail Image</label>
+                  <input type="file" accept="image/*" required />
+
+                  <label>Blog Content</label>
+                  <textarea
+                    rows="5"
+                    placeholder="Write your blog..."
+                    required
+                  ></textarea>
+
+                  <button type="submit" class="submit-btn">Publish Blog</button>
+                </form>
+                <button class="close-modal">Close</button>
+              </div>
+
+              <!-- BOOK MODAL -->
+              <div id="book-modal" class="modal-box">
+                <h2>Add New Book</h2>
+                <form class="modal-form">
+                  <label>Book Title</label>
+                  <input type="text" placeholder="Enter book title" required />
+
+                  <label>Author</label>
+                  <input type="text" placeholder="Book author" required />
+
+                  <label>Genre</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Fiction, Mystery"
+                    required
+                  />
+
+                  <label>Book Cover</label>
+                  <input type="file" accept="image/*" required />
+
+                  <label>Description</label>
+                  <textarea
+                    rows="4"
+                    placeholder="Short description..."
+                  ></textarea>
+
+                  <button type="submit" class="submit-btn">Add Book</button>
+                </form>
+                <button class="close-modal">Close</button>
+              </div>
+            </div>
+            <div class="sec1-side-card">
+              <h3 class="sec1-title">Fines & Penalties</h3>
+
+              <table class="sec1-table">
+                <tr>
+                  <th class="sec1-th">User Name</th>
+                  <th class="sec1-th">Reason</th>
+                  <th class="sec1-th">Status</th>
+                </tr>
+
+                <tr>
+                  <td class="sec1-td">Nikita Malhotra</td>
+                  <td class="sec1-td">Outstanding</td>
+                  <td class="sec1-td">₹300</td>
+                </tr>
+
+                <tr>
+                  <td class="sec1-td">Ramesh Kumar</td>
+                  <td class="sec1-td">Lost Card</td>
+                  <td class="sec1-td">Paid</td>
+                </tr>
+
+                <tr>
+                  <td class="sec1-td">Swati Singh</td>
+                  <td class="sec1-td">Outstanding</td>
+                  <td class="sec1-td">Paid</td>
+                </tr>
+              </table>
+              <button class="sec1-view-btn">View All</button>
+              <button class="sec1-report-btn">Generate Report</button>
+            </div>
+          </div>
+          <!-- Borrowing trend Graph -->
+          <div class="graph-layout">
+            <div class="sec7-borrowing-card">
+              <div class="sec7-header">
+                <div>
+                  <h3 class="sec7-title">Borrowing Trends</h3>
+                  <p class="sec7-subtitle">Monthly book circulation analysis</p>
+                </div>
+
+                <div class="sec7-growth">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                  <span>+15% vs last year</span>
+                  <p>Avg: 65 books/month</p>
+                </div>
+              </div>
+
+              <canvas id="sec7-borrowChart"></canvas>
+
+              <div class="sec7-legend">
+                <span><i class="dot legend-blue"></i> Borrowed</span>
+                <span><i class="dot legend-red"></i> Overdue</span>
+                <span><i class="dot legend-green"></i> Returned</span>
+              </div>
+
+              <div class="sec7-footer-stats">
+                <div>
+                  <h2 class="blue">88</h2>
+                  <p>This Month Borrowed</p>
+                </div>
+
+                <div>
+                  <h2 class="green">80</h2>
+                  <p>This Month Returned</p>
+                </div>
+
+                <div>
+                  <h2 class="red">8</h2>
+                  <p>Currently Overdue</p>
+                </div>
+              </div>
+            </div>
+            <div class="sec8-growth-card">
+              <div class="sec8-header">
+                <div>
+                  <h3 class="sec8-title">Library Growth</h3>
+                  <p class="sec8-subtitle">Year-over-year expansion</p>
+                </div>
+
+                <div class="sec8-growth-rate">
+                  <span class="sec8-rate-text">+18% YoY</span>
+                  <p>Growth Rate</p>
+                </div>
+              </div>
+
+              <div class="sec8-top-cards">
+                <div class="sec8-small-card sec8-bg-blue">
+                  <i class="fa-solid fa-book"></i>
+                  <h2>1145</h2>
+                  <p>+3.3% this month</p>
+                </div>
+
+                <div class="sec8-small-card sec8-bg-purple">
+                  <i class="fa-solid fa-users"></i>
+                  <h2>1284</h2>
+                  <p>+2.2% this month</p>
+                </div>
+
+                <div class="sec8-small-card sec8-bg-orange">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <h2>61</h2>
+                  <p>+4 this month</p>
+                </div>
+              </div>
+
+              <canvas id="sec8-growthChart"></canvas>
+
+              <div class="sec8-legend">
+                <span><i class="sec8-dot sec8-dot-orange"></i> Blog Posts</span>
+                <span><i class="sec8-dot sec8-dot-blue"></i> Total Books</span>
+                <span
+                  ><i class="sec8-dot sec8-dot-purple"></i> Total Students</span
+                >
+              </div>
+
+              <div class="sec8-projection">
+                <span>Projected by Dec 2025</span>
+                <strong class="sec8-books">1,200 books</strong>
+                <strong class="sec8-students">1,350 students</strong>
+              </div>
+            </div>
+          </div>
+
+          <div id="sec2layout">
+            <div class="sec4-activity-card">
+              <h3 class="sec4-title">Recent Activity</h3>
+
+              <div class="sec4-item">
+                <img
+                  src="https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg"
+                  class="sec4-img"
+                />
+                <div>
+                  <p class="sec4-time">5 minutes ago</p>
+                  <p class="sec4-text">John borrowed <strong>“Dune”</strong></p>
+                </div>
+              </div>
+
+              <div class="sec4-item">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/1458/1458485.png"
+                  class="sec4-img"
+                />
+                <div>
+                  <p class="sec4-time">12 hours ago</p>
+                  <p class="sec4-text">New blog post published</p>
+                </div>
+              </div>
+
+              <div class="sec4-item">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/9897/9897212.png"
+                  class="sec4-img"
+                />
+                <div>
+                  <p class="sec4-time">5 hours ago</p>
+                  <p class="sec4-text">Fine collected from a user</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sec6-top-readers">
+              <div class="sec6-header">
+                <div>
+                  <h3 class="sec6-title">Top Readers</h3>
+                  <p class="sec6-subtitle">Most active students this month</p>
+                </div>
+
+                <div class="sec6-header-icon">
+                  <i class="fa-solid fa-award"></i>
+                </div>
+              </div>
+
+              <div class="sec6-reader">
+                <div class="sec6-rank rank1">#1</div>
+                <div class="sec6-info">
+                  <h4>Saurabh</h4>
+                  <p>STU001</p>
+                </div>
+                <div class="sec6-stats">
+                  <i class="fa-solid fa-book sec6-anim"></i>
+                  <span>28</span>
+                  <p>145h</p>
+                </div>
+              </div>
+
+              <div class="sec6-reader">
+                <div class="sec6-rank rank2">#2</div>
+                <div class="sec6-info">
+                  <h4>Jayant Yadav</h4>
+                  <p>STU002</p>
+                </div>
+                <div class="sec6-stats">
+                  <i class="fa-solid fa-book sec6-anim"></i>
+                  <span>24</span>
+                  <p>132h</p>
+                </div>
+              </div>
+
+              <div class="sec6-reader">
+                <div class="sec6-rank rank3">#3</div>
+                <div class="sec6-info">
+                  <h4>Palak singh</h4>
+                  <p>STU003</p>
+                </div>
+                <div class="sec6-stats">
+                  <i class="fa-solid fa-book sec6-anim"></i>
+                  <span>22</span>
+                  <p>118h</p>
+                </div>
+              </div>
+
+              <div class="sec6-reader">
+                <div class="sec6-rank rank4">#4</div>
+                <div class="sec6-info">
+                  <h4>Priyanshu</h4>
+                  <p>STU004</p>
+                </div>
+                <div class="sec6-stats">
+                  <i class="fa-solid fa-book sec6-anim"></i>
+                  <span>20</span>
+                  <p>105h</p>
+                </div>
+              </div>
+
+              <button class="sec6-view-btn">
+                <i class="fa-solid fa-users"></i>
+                View All Students
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- manage books -->
+      <div id="Books-catalog-sectionAdmin">
+        <div id="dashboard-section" class="app-section">
+          <div id="dashboardADminpimg">
+            <img src="dashBG.jpg" alt="waves-dg" />
+          </div>
+          <div id="dashboardADminptxt">
+            <h1 id="HEadingDAsh">Manage Books</h1>
+          </div>
+        </div>
+        <div class="BookManageArea">
+          <div class="manage_books_stats_grid">
+            <div class="manage_books_stat_card">
+              <div class="manage_books_stat_info">
+                <h3>Total Books</h3>
+                <div class="manage_books_stat_number" id="totalBooksCount">
+                  0
+                </div>
+              </div>
+              <div class="manage_books_stat_icon">📚</div>
+            </div>
+            <div class="manage_books_stat_card">
+              <div class="manage_books_stat_info">
+                <h3>Out of Stock</h3>
+                <div class="manage_books_stat_number" id="outOfStockCount">
+                  0
+                </div>
+                <span class="manage_books_alert_badge" id="outOfStockBadge"
+                  >⚠️ Needs Attention</span
+                >
+              </div>
+              <div class="manage_books_stat_icon">📦</div>
+            </div>
+            <div class="manage_books_stat_card">
+              <div class="manage_books_stat_info">
+                <h3>Low Stock</h3>
+                <div class="manage_books_stat_number" id="lowStockCount">0</div>
+              </div>
+              <div class="manage_books_stat_icon">⚡</div>
+            </div>
+            <div class="manage_books_stat_card">
+              <div class="manage_books_stat_info">
+                <h3>Pending Requests</h3>
+                <div class="manage_books_stat_number" id="pendingRequestsCount">
+                  0
+                </div>
+              </div>
+              <div class="manage_books_stat_icon">📝</div>
+            </div>
+          </div>
+
+          <!-- Book Inventory Section -->
+          <div class="manage_books_section">
+            <div class="manage_books_section_header">
+              <h2>Book Inventory</h2>
+              <button
+                class="manage_books_btn_primary"
+                onclick="openAddBookModal()"
+              >
+                ➕ Add Book
+              </button>
+            </div>
+
+            <input
+              type="text"
+              class="manage_books_search_bar"
+              id="searchBooks"
+              placeholder="Search by title, author, or ISBN..."
+              onkeyup="filterBooks()"
+            />
+
+            <div style="overflow-x: auto">
+              <table class="manage_books_table">
+                <thead>
+                  <tr>
+                    <th style="width: 8%">Image</th>
+                    <th style="width: 32%">Book Title</th>
+                    <th style="width: 20%">Author</th>
+                    <th style="width: 15%">ISBN</th>
+                    <th style="width: 5%">Stock</th>
+                    <th style="width: 10%">Status</th>
+                    <th style="width: 10%; text-align: center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="booksTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ADD BOOK MODAL -->
+          <div class="manage_books_modal" id="addBookModal">
+            <div class="manage_books_modal_content">
+              <h2>Add Book</h2>
+              <form id="addBookForm">
+                <input
+                  class="manage_books_form_input"
+                  id="bookTitle"
+                  placeholder="Book Title"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="bookAuthor"
+                  placeholder="Author"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="bookISBN"
+                  placeholder="ISBN"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="bookStock"
+                  type="number"
+                  min="0"
+                  placeholder="Stock"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="bookCategory"
+                  placeholder="Category"
+                  required
+                />
+
+                <!-- IMAGE UPLOAD -->
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Book Cover Image (Optional)</label
+                >
+                <input
+                  class="manage_books_form_input"
+                  id="bookImage"
+                  type="file"
+                  accept="image/*"
+                />
+
+                <div style="display: flex; gap: 10px">
+                  <button
+                    type="button"
+                    class="manage_books_btn_submit"
+                    style="background: #ccc; color: #333"
+                    onclick="closeAddBookModal()"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" class="manage_books_btn_submit">
+                    Add
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- EDIT BOOK MODAL -->
+          <div class="manage_books_modal" id="editBookModal">
+            <div class="manage_books_modal_content">
+              <h2>Edit Book</h2>
+
+              <form id="editBookForm">
+                <input type="hidden" id="editBookId" />
+
+                <input
+                  class="manage_books_form_input"
+                  id="editBookTitle"
+                  placeholder="Book Title"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="editBookAuthor"
+                  placeholder="Author"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="editBookISBN"
+                  placeholder="ISBN"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="editBookStock"
+                  type="number"
+                  min="0"
+                  placeholder="Stock"
+                  required
+                />
+                <input
+                  class="manage_books_form_input"
+                  id="editBookCategory"
+                  placeholder="Category"
+                  required
+                />
+
+                <!-- IMAGE UPLOAD (EDIT) -->
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Update Book Cover Image (Optional)</label
+                >
+                <input
+                  class="manage_books_form_input"
+                  id="editBookImage"
+                  type="file"
+                  accept="image/*"
+                />
+                <!-- Current Image Preview -->
+                <div id="editImagePreviewContainer" class="mb-4 hidden">
+                  <p class="text-xs text-gray-500 mb-1">Current Cover:</p>
+                  <img
+                    id="editImagePreview"
+                    src=""
+                    alt="Current Book Cover"
+                    class="book-cover"
+                  />
+                </div>
+
+                <div style="display: flex; gap: 10px">
+                  <button
+                    type="button"
+                    class="manage_books_btn_submit"
+                    style="background: #ccc; color: #333"
+                    onclick="closeEditBookModal()"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" class="manage_books_btn_submit">
+                    Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="request_section">
+            <h2 class="request_title">📑 Book Requests</h2>
+
+            <div id="request_list">
+              <!-- Cards are inserted by JS -->
+            </div>
+          </div>
+
+          <!-- Notification -->
+          <div id="request_notification"></div>
+        </div>
+      </div>
+
+      <!-- manage blogs -->
+      <div id="blog-sectionAdmin">
+        <div id="dashboard-section" class="app-section">
+          <div id="dashboardADminpimg">
+            <img src="dashBG.jpg" alt="waves-dg" />
+          </div>
+          <div id="dashboardADminptxt">
+            <h1 id="HEadingDAsh">Manage Blogs</h1>
+          </div>
+        </div>
+        <div class="BlogManageAdmin">
+          <div class="content_wrapper_blogs">
+            <!-- Statistics Cards -->
+            <div class="statistics_cards_container">
+              <div class="stat_card_item">
+                <div class="stat_icon_display">📝</div>
+                <div class="stat_value_display" id="stat_total_blogs">0</div>
+                <div class="stat_label_display">Total Blogs</div>
+              </div>
+              <div class="stat_card_item">
+                <div class="stat_icon_display">✅</div>
+                <div class="stat_value_display" id="stat_published_blogs">
+                  0
+                </div>
+                <div class="stat_label_display">Published</div>
+              </div>
+              <div class="stat_card_item">
+                <div class="stat_icon_display">📄</div>
+                <div class="stat_value_display" id="stat_draft_blogs">0</div>
+                <div class="stat_label_display">Drafts</div>
+              </div>
+              <div class="stat_card_item">
+                <div class="stat_icon_display">📦</div>
+                <div class="stat_value_display" id="stat_archived_blogs">0</div>
+                <div class="stat_label_display">Archived</div>
+              </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action_toolbar_blogs">
+              <div class="search_wrapper_blogs">
+                <input
+                  type="text"
+                  class="search_input_field"
+                  id="search_input_blogs"
+                  placeholder="Search by title, author, or category..."
+                />
+                <span class="search_icon_display">🔍</span>
+              </div>
+
+              <button class="button_add_new_blog" id="btn_add_new_blog">
+                + Add New Blog
+              </button>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter_section_blogs">
+              <button
+                class="filter_button_item active_filter_button"
+                data-filter="all"
+              >
+                All Blogs
+              </button>
+              <button class="filter_button_item" data-filter="published">
+                Published
+              </button>
+              <button class="filter_button_item" data-filter="draft">
+                Drafts
+              </button>
+              <button class="filter_button_item" data-filter="archived">
+                Archived
+              </button>
+            </div>
+
+            <!-- Bulk Actions -->
+            <div class="bulk_actions_toolbar">
+              <input
+                type="checkbox"
+                class="select_all_checkbox"
+                id="select_all_checkbox_blogs"
+              />
+              <label
+                for="select_all_checkbox_blogs"
+                style="font-weight: 600; margin-left: 8px"
+                >Select All</label
+              >
+              <button
+                class="bulk_action_button bulk_publish_btn"
+                id="bulk_publish_button"
+              >
+                Publish Selected
+              </button>
+              <button
+                class="bulk_action_button bulk_delete_btn"
+                id="bulk_delete_button"
+              >
+                Delete Selected
+              </button>
+              <button
+                class="bulk_action_button bulk_export_btn"
+                id="bulk_export_button"
+              >
+                Export to CSV
+              </button>
+            </div>
+
+            <!-- Blogs Table -->
+            <div class="table_container_blogs">
+              <table class="table_blogs_data">
+                <thead class="table_header_row">
+                  <tr>
+                    <th class="checkbox_cell_blogs">Select</th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Views</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="table_body_content" id="table_body_blogs">
+                  <!-- Dynamic content -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination_container" id="pagination_container_blogs">
+              <!-- Dynamic pagination -->
+            </div>
+          </div>
+          <!-- Add/Edit Modal -->
+          <div class="modal_overlay_container" id="modal_blog_form">
+            <div class="modal_content_wrapper">
+              <div class="modal_header_section">
+                <h2 class="modal_title_text" id="modal_title_display">
+                  Add New Blog
+                </h2>
+                <button class="modal_close_button" id="btn_close_modal">
+                  &times;
+                </button>
+              </div>
+              <div class="modal_body_section">
+                <form id="blog_form_main">
+                  <div class="form_group_wrapper">
+                    <label class="form_label_text">Blog Title *</label>
+                    <input
+                      type="text"
+                      class="form_input_field"
+                      id="input_blog_title"
+                      required
+                    />
+                  </div>
+
+                  <div class="form_group_wrapper">
+                    <label class="form_label_text">Author Name *</label>
+                    <input
+                      type="text"
+                      class="form_input_field"
+                      id="input_blog_author"
+                      required
+                    />
+                  </div>
+
+                  <div class="form_group_wrapper">
+                    <label class="form_label_text">Category *</label>
+                    <select
+                      class="form_select_field"
+                      id="select_blog_category"
+                      required
+                    >
+                      <option value="">Select Category</option>
+                      <option value="Book Reviews">Book Reviews</option>
+                      <option value="Library News">Library News</option>
+                      <option value="Reading Tips">Reading Tips</option>
+                      <option value="Author Interviews">
+                        Author Interviews
+                      </option>
+                      <option value="Events">Events</option>
+                      <option value="Technology">Technology</option>
+                      <option value="Literature">Literature</option>
+                    </select>
+                  </div>
+
+                  <div class="form_group_wrapper">
+                    <label class="form_label_text">Blog Content *</label>
+                    <textarea
+                      class="form_textarea_field"
+                      id="textarea_blog_content"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="form_group_wrapper">
+                    <label class="form_label_text">Status *</label>
+                    <select
+                      class="form_select_field"
+                      id="select_blog_status"
+                      required
+                    >
+                      <option value="draft">Draft</option>
+                      <option value="published">Published</option>
+                      <option value="archived">Archived</option>
+                    </select>
+                  </div>
+
+                  <div class="form_actions_wrapper">
+                    <button
+                      type="button"
+                      class="cancel_form_button"
+                      id="btn_cancel_form"
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" class="submit_form_button">
+                      Save Blog
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification Toast -->
+          <div class="notification_toast" id="notification_toast_blogs">
+            <span id="notification_message_text"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- manage User -->
+      <div id="MAnage-USer-Adimn">
+        <div id="dashboard-section" class="app-section">
+          <div id="dashboardADminpimg">
+            <img src="dashBG.jpg" alt="waves-dg" />
+          </div>
+          <div id="dashboardADminptxt">
+            <h1 id="HEadingDAsh">Manage User</h1>
+          </div>
+        </div>
+        <div class="UserManageArea">
+          <div class="mu-wrap">
+            <div class="mu-stats-container">
+              <div class="mu-stat-card-v2">
+                <div>
+                  <p class="mu-v2-title">Total Users</p>
+                  <h2 class="mu-v2-value" id="mu-total-users">0</h2>
+                  <p class="mu-v2-change up" id="mu-users-added">
+                    ↑12 added this month
+                  </p>
+                </div>
+
+                <div class="mu-v2-icon blue">
+                  <i class="fa-solid fa-users"></i>
+                </div>
+              </div>
+
+              <div class="mu-stat-card-v2">
+                <div>
+                  <p class="mu-v2-title">Active Members</p>
+                  <h2 class="mu-v2-value" id="mu-active-users">0</h2>
+                  <p class="mu-v2-change up">↑4 new this month</p>
+                </div>
+
+                <div class="mu-v2-icon green">
+                  <i class="fa-solid fa-user-check"></i>
+                </div>
+              </div>
+
+              <div class="mu-stat-card-v2">
+                <div>
+                  <p class="mu-v2-title">Total Dues</p>
+                  <h2 class="mu-v2-value" id="mu-total-dues">$17.50</h2>
+                  <p class="mu-v2-change down">↓2 overdue</p>
+                </div>
+
+                <div class="mu-v2-icon red">
+                  <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="mu-header">
+              <div class="mu-title">
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style="
+                    border-radius: 8px;
+                    background: linear-gradient(135deg, #eef6ff, #fdf9ff);
+                    padding: 6px;
+                  "
+                >
+                  <path
+                    d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zM3 21a9 9 0 0118 0"
+                    stroke="#2f63e0"
+                    stroke-width="1.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <div>
+                  <h1>Manage Users</h1>
+                  <div class="mu-subtle">
+                    Admin panel — manage students, edit details & view activity
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 8px; align-items: center">
+                <button class="mu-btn" id="mu-add-btn">
+                  <i class="fa fa-plus" style="font-size: 13px"></i> Add user
+                </button>
+              </div>
+            </div>
+
+            <div class="mu-card">
+              <!-- CONTROLS -->
+              <div class="mu-controls">
+                <label class="mu-search" title="Search by name or email">
+                  <i class="fa fa-search" style="color: #7a8aa6"></i>
+                  <input
+                    id="mu-search"
+                    placeholder="Search users by name or email..."
+                  />
+                  <button
+                    id="mu-clear-search"
+                    class="mu-select"
+                    style="display: none"
+                  >
+                    Clear
+                  </button>
+                </label>
+
+                <select
+                  id="mu-role-filter"
+                  class="mu-select"
+                  title="Filter by role"
+                >
+                  <option value="all">Filter: All roles</option>
+                  <!-- options will be injected -->
+                </select>
+
+                <select id="mu-sort" class="mu-select" title="Sort">
+                  <option value="name-asc">Sort: Name A → Z</option>
+                  <option value="name-desc">Sort: Name Z → A</option>
+                  <option value="email-asc">Email A → Z</option>
+                  <option value="email-desc">Email Z → A</option>
+                  <option value="status-asc">Status: Inactive → Active</option>
+                  <option value="status-desc">Status: Active → Inactive</option>
+                </select>
+
+                <select
+                  id="mu-page-size"
+                  class="mu-select"
+                  title="Rows per page"
+                >
+                  <option value="5">Show 5</option>
+                  <option value="8" selected>Show 8</option>
+                  <option value="12">Show 12</option>
+                </select>
+
+                <div style="flex: 0 0 auto"></div>
+              </div>
+
+              <!-- TABLE -->
+              <table class="mu-table" aria-describedby="user-table">
+                <thead>
+                  <tr>
+                    <th style="width: 8%">#</th>
+                    <th style="width: 36%">User</th>
+                    <th style="width: 22%">Email</th>
+                    <th style="width: 12%">Role</th>
+                    <th style="width: 10%">Status</th>
+                    <th style="width: 12%">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="mu-tbody">
+                  <!-- rows injected by JS -->
+                </tbody>
+              </table>
+
+              <!-- FOOTER / PAGINATION -->
+              <div class="mu-footer">
+                <div class="mu-pager">
+                  <button class="mu-page-btn" id="mu-prev">&laquo;</button>
+                  <div
+                    id="mu-pages"
+                    style="display: flex; gap: 6px; align-items: center"
+                  ></div>
+                  <button class="mu-page-btn" id="mu-next">&raquo;</button>
+                  <div style="width: 10px"></div>
+                  <div class="mu-page-info" id="mu-page-info"></div>
+                </div>
+
+                <div class="mu-subtle">Showing results — interactive list</div>
+              </div>
+            </div>
+          </div>
+          <!-- DROPDOWN (reused single element) -->
+          <div id="mu-dropdown-template" class="mu-dropdown" aria-hidden="true">
+            <div class="mu-item" data-action="view">
+              <i class="fa fa-eye"></i> View
+            </div>
+
+            <div class="mu-item" data-action="reset">
+              <i class="fa fa-key"></i> Reset password
+            </div>
+            <div class="mu-item" data-action="edit">
+              <i class="fa fa-pen"></i> Edit user
+            </div>
+            <div class="mu-item mu-delete" data-action="delete">
+              <i class="fa fa-trash"></i> Delete user
+            </div>
+          </div>
+
+          <!-- OVERLAYS / MODALS -->
+
+          <!-- EDIT / ADD MODAL -->
+          <div id="mu-edit-overlay" class="mu-overlay" aria-hidden="true">
+            <div
+              class="mu-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="edit-title"
+            >
+              <h3 id="edit-title">Edit user</h3>
+              <p class="mu-subtle" id="edit-sub">
+                Change user details and save.
+              </p>
+
+              <div style="display: flex; gap: 12px; flex-direction: column">
+                <input id="mu-edit-id" type="hidden" />
+                <div class="mu-form-row">
+                  <input
+                    id="mu-edit-name"
+                    class="mu-input"
+                    placeholder="Full name"
+                  />
+                  <input
+                    id="mu-edit-email"
+                    class="mu-input"
+                    placeholder="Email"
+                  />
+                </div>
+                <div class="mu-form-row">
+                  <select id="mu-edit-role" class="mu-input">
+                    <!-- roles filled dynamically -->
+                  </select>
+                  <select id="mu-edit-status" class="mu-input">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    gap: 10px;
+                    justify-content: flex-end;
+                    margin-top: 6px;
+                  "
+                >
+                  <button class="mu-page-btn" id="mu-edit-cancel">
+                    Cancel
+                  </button>
+                  <button class="mu-btn" id="mu-edit-save">
+                    <i class="fa fa-save"></i> Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIEW MODAL (User Details + Activity) -->
+          <div id="mu-history-overlay" class="mu-overlay" aria-hidden="true">
+            <div class="mu-modal" role="dialog" aria-modal="true">
+              <h3>User Details</h3>
+              <hr
+                style="
+                  border: 0;
+                  border-bottom: 1px solid #eee;
+                  margin: 10px 0 18px;
+                "
+              />
+
+              <!-- Details Section -->
+              <div
+                id="mu-view-details"
+                style="margin-bottom: 22px; font-size: 14px; line-height: 1.9"
+              >
+                <!-- Details inserted by JS -->
+              </div>
+
+              <!-- Activity Title -->
+              <h4 style="margin-bottom: 10px; font-size: 15px">Activity</h4>
+
+              <div id="mu-history-content" class="mu-timeline">
+                <!-- events injected -->
+              </div>
+
+              <div
+                class="mu-actions-row"
+                style="
+                  display: flex;
+                  justify-content: flex-end;
+                  margin-top: 18px;
+                "
+              >
+                <button class="mu-page-btn" id="mu-history-close">Close</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DELETE CONFIRM -->
+          <div id="mu-delete-overlay" class="mu-overlay" aria-hidden="true">
+            <div class="mu-modal" role="dialog" aria-modal="true">
+              <h3>Confirm delete</h3>
+              <p class="mu-subtle" id="mu-delete-sub">
+                Are you sure you want to permanently remove this user?
+              </p>
+
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: flex-end;
+                  margin-top: 10px;
+                "
+              >
+                <button class="mu-page-btn" id="mu-delete-cancel">
+                  Cancel
+                </button>
+                <button
+                  class="mu-btn"
+                  id="mu-delete-confirm"
+                  style="background: linear-gradient(90deg, #ff5c5c, #ff7b7b)"
+                >
+                  <i class="fa fa-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOAST -->
+          <div id="mu-toast" class="mu-toast" role="status" aria-live="polite">
+            <i class="fa fa-circle-check" style="font-size: 16px"></i>
+            <div id="mu-toast-text"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage my Acccount -->
+      <div id="MAnage-Account-Admin">
+        <div id="dashboard-section" class="app-section">
+          <div id="dashboardADminpimg">
+            <img src="dashBG.jpg" alt="waves-dg" />
+          </div>
+          <div id="dashboardADminptxt">
+            <h1 id="HEadingDAsh">Manage My Account</h1>
+          </div>
+        </div>
+        <div class="ManageMyAccountArea">
+          <div class="adm-wrap">
+            <div class="adm-header">
+              <div class="adm-title">
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  style="
+                    background: linear-gradient(135deg, #eef6ff, #f6fff1);
+                    border-radius: 8px;
+                    padding: 6px;
+                  "
+                >
+                  <path
+                    d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5zM4 22a8 8 0 0116 0"
+                    stroke="#235bd9"
+                    stroke-width="1.2"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <div>
+                  <h1>Manage My Account (Admin)</h1>
+                  <div class="adm-sub">
+                    Update profile, password & notification settings
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center">
+                <button class="adm-btn ghost" id="adm-preview-btn">
+                  <i class="fa fa-eye"></i> Preview
+                </button>
+                <button class="adm-btn primary" id="adm-save-top">Save</button>
+              </div>
+            </div>
+
+            <div class="adm-stats">
+              <div class="adm-stat">
+                <div class="icon blue"><i class="fa fa-book"></i></div>
+                <div class="meta">
+                  <small>Total Books</small>
+                  <div class="num" id="adm-stat-books">5,247</div>
+                </div>
+              </div>
+              <div class="adm-stat">
+                <div class="icon green"><i class="fa fa-user-check"></i></div>
+                <div class="meta">
+                  <small>Active Users</small>
+                  <div class="num" id="adm-stat-active">1,538</div>
+                </div>
+              </div>
+              <div class="adm-stat">
+                <div class="icon red"><i class="fa fa-receipt"></i></div>
+                <div class="meta">
+                  <small>Borrowed Items</small>
+                  <div class="num" id="adm-stat-borrowed">684</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="adm-card">
+              <!-- LEFT: PROFILE -->
+              <div class="adm-profile">
+                <div class="adm-avatar" aria-hidden="true">
+                  <img
+                    id="adm-profile-img"
+                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    alt="admin photo"
+                  />
+                </div>
+
+                <div style="width: 100%">
+                  <div class="adm-name" id="adm-display-name">
+                    Saurabh Kumar
+                  </div>
+                  <div class="adm-email" id="adm-display-email">
+                    saurabh123@gmail.com
+                  </div>
+
+                  <div class="adm-upload-row" style="margin-top: 12px">
+                    <input
+                      id="adm-img-input"
+                      type="file"
+                      accept="image/*"
+                      style="display: none"
+                    />
+                    <button class="adm-btn ghost" id="adm-change-photo">
+                      Change Photo
+                    </button>
+                    <button class="adm-btn primary" id="adm-remove-photo">
+                      Remove
+                    </button>
+                  </div>
+
+                  <div class="adm-stats-mini">
+                    <div class="adm-mini">
+                      <small>Member ID</small>
+                      <div class="val" id="adm-member-id">LIB-2023-1547</div>
+                    </div>
+                    <div class="adm-mini">
+                      <small>Since</small>
+                      <div class="val" id="adm-member-since">Jan 15, 2023</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT: FORMS -->
+              <div class="adm-forms">
+                <!-- ALERTS -->
+                <div id="adm-success" class="adm-alert success"></div>
+                <div id="adm-error" class="adm-alert error"></div>
+
+                <!-- Account info panel -->
+                <div class="adm-panel">
+                  <h3>Account Information</h3>
+                  <p class="adm-muted">
+                    Update your admin profile details below.
+                  </p>
+
+                  <div class="adm-form-row">
+                    <div class="adm-field adm-full">
+                      <label for="adm-name">Full name</label>
+                      <input id="adm-name" type="text" value="Saurabh Kumar" />
+                    </div>
+
+                    <div class="adm-field">
+                      <label for="adm-email">Email</label>
+                      <input
+                        id="adm-email"
+                        type="email"
+                        value="saurabh123@gmail.com"
+                      />
+                    </div>
+
+                    <div class="adm-field">
+                      <label for="adm-phone">Phone</label>
+                      <input id="adm-phone" type="tel" value="9876543210" />
+                    </div>
+
+                    <div class="adm-field">
+                      <label for="adm-dob">Date of Birth</label>
+                      <input id="adm-dob" type="date" value="1990-05-15" />
+                    </div>
+                  </div>
+
+                  <div class="adm-actions">
+                    <button class="adm-btn ghost" id="adm-reset-form">
+                      Reset
+                    </button>
+                    <button class="adm-btn primary" id="adm-save-info">
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Password panel -->
+                <div class="adm-panel adm-password">
+                  <h3>Change Password</h3>
+                  <p class="adm-muted">
+                    Make sure your new password is strong and unique.
+                  </p>
+
+                  <div
+                    class="adm-pw-group"
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                      margin-top: 12px;
+                    "
+                  >
+                    <div class="adm-pw-row">
+                      <div style="flex: 1" class="adm-field">
+                        <label for="adm-current-pw">Current Password</label>
+                        <input
+                          id="adm-current-pw"
+                          type="password"
+                          placeholder="Current password"
+                        />
+                      </div>
+                      <div
+                        class="adm-toggle"
+                        title="Toggle visibility"
+                        onclick="admTogglePw('adm-current-pw')"
+                      >
+                        👁️
+                      </div>
+                    </div>
+
+                    <div class="adm-pw-row">
+                      <div style="flex: 1" class="adm-field">
+                        <label for="adm-new-pw">New Password</label>
+                        <input
+                          id="adm-new-pw"
+                          type="password"
+                          placeholder="New password"
+                        />
+                        <div class="adm-strength" id="adm-strength">
+                          <i></i>
+                        </div>
+                      </div>
+                      <div
+                        class="adm-toggle"
+                        title="Toggle visibility"
+                        onclick="admTogglePw('adm-new-pw')"
+                      >
+                        👁️
+                      </div>
+                    </div>
+
+                    <div class="adm-pw-row">
+                      <div style="flex: 1" class="adm-field">
+                        <label for="adm-confirm-pw">Confirm Password</label>
+                        <input
+                          id="adm-confirm-pw"
+                          type="password"
+                          placeholder="Confirm new password"
+                        />
+                      </div>
+                      <div
+                        class="adm-toggle"
+                        title="Toggle visibility"
+                        onclick="admTogglePw('adm-confirm-pw')"
+                      >
+                        👁️
+                      </div>
+                    </div>
+
+                    <div
+                      style="
+                        display: flex;
+                        gap: 10px;
+                        justify-content: flex-end;
+                        margin-top: 6px;
+                      "
+                    >
+                      <button class="adm-btn ghost" id="adm-cancel-pw">
+                        Cancel
+                      </button>
+                      <button class="adm-btn primary" id="adm-save-pw">
+                        Update Password
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="adm-panel">
+                  <h3>Notification Preferences</h3>
+                  <p class="adm-muted">
+                    Choose what notifications you want to receive.
+                  </p>
+                  <div class="adm-notif-list">
+                    <label class="adm-notif"
+                      ><input id="adm-email-notif" type="checkbox" checked />
+                      <div>
+                        <strong>Email notifications</strong><br /><small
+                          class="adm-muted"
+                          >Reminders for due dates</small
+                        >
+                      </div></label
+                    >
+                    <label class="adm-notif"
+                      ><input id="adm-sms-notif" type="checkbox" />
+                      <div>
+                        <strong>SMS reminders</strong><br /><small
+                          class="adm-muted"
+                          >Receive text alerts</small
+                        >
+                      </div></label
+                    >
+                    <label class="adm-notif"
+                      ><input id="adm-newbooks-notif" type="checkbox" checked />
+                      <div>
+                        <strong>New arrivals</strong><br /><small
+                          class="adm-muted"
+                          >Be notified about new books</small
+                        >
+                      </div></label
+                    >
+                    <label class="adm-notif"
+                      ><input id="adm-events-notif" type="checkbox" />
+                      <div>
+                        <strong>Events & workshops</strong><br /><small
+                          class="adm-muted"
+                          >Library events update</small
+                        >
+                      </div></label
+                    >
+                  </div>
+
+                  <div class="adm-actions">
+                    <button class="adm-btn ghost" id="adm-reset-notif">
+                      Reset
+                    </button>
+                    <button class="adm-btn primary" id="adm-save-notif">
+                      Save Preferences
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="Admin.js"></script>
+</html>
