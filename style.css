@@ -629,6 +629,42 @@ footer {
   /* background: linear-gradient(135deg, #2980b9, #1a252f); */
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.153);
 }
+/* Utility to hide elements */
+.hidden {
+  display: none !important;
+}
+
+/* Toggle Link Styling */
+.toggle-container {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+#toggleLink {
+  color: #3498db;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+#toggleLink:hover {
+  color: #1a252f;
+}
+
+/* Adjust Modal Height automatically based on content */
+.modal-content {
+  /* Ensure your modal-content has this or similar */
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  transition: height 0.3s ease;
+}
 
 /* Scrollbar */
 
@@ -654,3 +690,4 @@ footer {
   scrollbar-width: thin;
   scrollbar-color: #2563eb #dce3ff;
 }
+
