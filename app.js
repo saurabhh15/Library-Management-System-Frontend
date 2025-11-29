@@ -20,134 +20,313 @@ class SpecialHeader extends HTMLElement {
       </div>
     </header>
 
-    <!-- Login Modal -->
     <div id="loginModal" class="modal">
       <div class="modal-content">
         <span class="close-btn">&times;</span>
         <h2 id="loginTitle">Login</h2>
 
-    <!-- Tab Buttons -->
-    <div class="login-tabs">
-      <button class="tab-btn active" data-type="student">Student</button>
-      <button class="tab-btn" data-type="admin">Admin</button>
-    </div>
-
-    <!-- Login Form -->
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="username">Username / ID</label>
-        <input type="text" id="username" placeholder="Enter Username" required>
-      </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter Password" required>
+        <div class="login-tabs">
+          <button class="tab-btn active" data-type="student">Student</button>
+          <button class="tab-btn" data-type="admin">Admin</button>
         </div>
-        <button type="submit" class="btn">Login</button>
 
-        <div class="demo-reset-wrapper">
-          <button type="button" class="demoBtn">Demo Login</button>
-          <button type="button" class="resetBtn hidden">Reset</button>
-        </div>
+        <form id="loginForm">
+          <div class="form-group signup-field hidden">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" placeholder="Enter Full Name" />
+          </div>
+
+          <div class="form-group signup-field hidden">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter Email Address" />
+          </div>
+
+          <div class="form-group">
+            <label for="username">Username / ID</label>
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter Username"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn" id="submitBtn">Login</button>
+
+          <div
+            class="toggle-container"
+            style="text-align: center; margin-top: 15px"
+          >
+            <p id="toggleText">
+              Don't have an account?
+              <span
+                id="toggleLink"
+                style="color: #3498db; cursor: pointer; font-weight: bold"
+                >Sign up</span
+              >
+            </p>
+          </div>
+
+          <div class="demo-reset-wrapper">
+            <button type="button" class="demoBtn">Demo Login</button>
+            <button type="button" class="resetBtn hidden">Reset</button>
+          </div>
         </form>
       </div>
     </div>
        `;
 
-    const loginModal = this.querySelector("#loginModal");
-    const loginTitle = this.querySelector("#loginTitle");
-    const closeBtn = this.querySelector(".close-btn");
-    const tabButtons = this.querySelectorAll(".tab-btn");
-    const usernameInput = this.querySelector("#username");
-    const passwordInput = this.querySelector("#password");
-    const loginForm = this.querySelector("#loginForm");
-    const getStartedBtn = document.getElementById("heroLoginBtn");
-    const demoBtn = this.querySelector(".demoBtn");
-    const resetBtn = this.querySelector(".resetBtn");
+document.addEventListener("DOMContentLoaded", () => {
+      // --- DOM ELEMENTS ---
+      const loginModal = document.querySelector("#loginModal");
+      const loginTitle = document.querySelector("#loginTitle");
+      const closeBtn = document.querySelector(".close-btn");
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const loginForm = document.querySelector("#loginForm");
 
-    this.querySelector("#StuLogin").addEventListener("click", (e) => {
-      e.preventDefault();
-      loginModal.style.display = "flex";
-      setLoginType("student");
-    });
+      // Inputs
+      const usernameInput = document.querySelector("#username");
+      const passwordInput = document.querySelector("#password");
+      const fullnameInput = document.querySelector("#fullname");
+      const emailInput = document.querySelector("#email");
+      const signupFields = document.querySelectorAll(".signup-field");
 
-    if (getStartedBtn) {
-      getStartedBtn.addEventListener("click", () => {
-        loginModal.style.display = "flex";
-      });
-    }
+      // Buttons & Toggles
+      const submitBtn = document.querySelector("#submitBtn");
+      const toggleText = document.querySelector("#toggleText");
+      const demoBtn = document.querySelector(".demoBtn");
+      const resetBtn = document.querySelector(".resetBtn");
 
-    closeBtn.addEventListener("click", () => {
-      loginModal.style.display = "none";
-    });
+      // Triggers to open modal
+      const openBtns = document.querySelectorAll("#StuLogin, #heroLoginBtn");
 
-    window.addEventListener("click", (e) => {
-      if (e.target === loginModal) {
-        loginModal.style.display = "none";
-      }
-    });
+      // --- STATE MANAGEMENT ---
+      let currentType = "student"; // 'student' or 'admin'
+      let isLoginMode = true; // true = Login, false = Signup
 
-    // Function to reset form and UI
-    const resetFormUI = () => {
-      loginForm.reset();
-      demoBtn.classList.remove("hidden");
-      resetBtn.classList.add("hidden");
-    };
+      // --- 1. LOCAL STORAGE HELPERS ---
 
-    const setLoginType = (type) => {
+      // Get the correct database key based on current tab
+      const getStorageKey = () =>
+        currentType === "student" ? "school_students" : "school_admins";
+
+      // Fetch users from storage
+      const getUsers = () => {
+        const users = localStorage.getItem(getStorageKey());
+        return users ? JSON.parse(users) : [];
+      };
+
+      // Save new user to storage
+      const saveUser = (userObj) => {
+        const users = getUsers();
+        users.push(userObj);
+        localStorage.setItem(getStorageKey(), JSON.stringify(users));
+      };
+
+      // --- 2. INITIALIZATION (Create Demo Users) ---
+      // This ensures the "Demo Login" button works immediately without manual signup
+      const initDemoUsers = () => {
+        const students =
+          JSON.parse(localStorage.getItem("school_students")) || [];
+        const admins = JSON.parse(localStorage.getItem("school_admins")) || [];
+
+        // Create Demo Student if not exists
+        if (!students.find((u) => u.username === "student123")) {
+          students.push({
+            username: "student123",
+            password: "123",
+            fullname: "Demo Student",
+          });
+          localStorage.setItem("school_students", JSON.stringify(students));
+        }
+
+        // Create Demo Admin if not exists
+        if (!admins.find((u) => u.username === "admin123")) {
+          admins.push({
+            username: "admin123",
+            password: "123",
+            fullname: "Demo Admin",
+          });
+          localStorage.setItem("school_admins", JSON.stringify(admins));
+        }
+      };
+      initDemoUsers();
+
+      // --- 3. UI LOGIC (Tabs & Toggles) ---
+
+      const updateUI = () => {
+        // Clear errors/inputs
+        loginForm.reset();
+
+        if (isLoginMode) {
+          loginTitle.textContent =
+            currentType === "student" ? "Student Login" : "Admin Login";
+          submitBtn.textContent = "Login";
+          toggleText.innerHTML = `Don't have an account? <span id="toggleLink">Sign up</span>`;
+
+          // Hide Signup fields
+          signupFields.forEach((field) => field.classList.add("hidden"));
+          // Show Demo button
+          if (demoBtn) demoBtn.parentElement.classList.remove("hidden");
+
+          usernameInput.placeholder =
+            currentType === "student"
+              ? "Enter Student ID"
+              : "Enter Admin Username";
+        } else {
+          loginTitle.textContent =
+            currentType === "student"
+              ? "Student Registration"
+              : "Admin Registration";
+          submitBtn.textContent = "Register";
+          toggleText.innerHTML = `Already have an account? <span id="toggleLink">Login</span>`;
+
+          // Show Signup fields
+          signupFields.forEach((field) => field.classList.remove("hidden"));
+          // Hide Demo button
+          if (demoBtn) demoBtn.parentElement.classList.add("hidden");
+
+          usernameInput.placeholder = "Create Username/ID";
+        }
+
+        // Re-bind the toggle link event since innerHTML replaced it
+        document.querySelector("#toggleLink").addEventListener("click", () => {
+          isLoginMode = !isLoginMode;
+          updateUI();
+        });
+      };
+
+      // Tab Switching
       tabButtons.forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.type === type);
+        btn.addEventListener("click", () => {
+          // Remove active class from all, add to clicked
+          tabButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          // Update state
+          currentType = btn.dataset.type;
+          updateUI();
+        });
       });
 
-      if (type === "student") {
-        loginTitle.textContent = "Student Login";
-        usernameInput.placeholder = "Enter Student ID";
-      } else {
-        loginTitle.textContent = "Admin Login";
-        usernameInput.placeholder = "Enter Admin Username";
-      }
+      // Modal Open/Close
+      openBtns.forEach((btn) => {
+        if (btn) {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            loginModal.style.display = "flex";
+            isLoginMode = true; // Always open in Login mode
+            currentType = "student"; // Default to student
+            // Reset tabs visually
+            tabButtons.forEach((b) => b.classList.remove("active"));
+            tabButtons[0].classList.add("active");
+            updateUI();
+          });
+        }
+      });
 
-      // Reset form when switching tabs
-      resetFormUI();
-    };
-
-    // Add tab click events
-    tabButtons.forEach((btn) => {
-      btn.addEventListener("click", () => setLoginType(btn.dataset.type));
-    });
-
-    //submit handler
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const activeTab = [...tabButtons].find((btn) =>
-        btn.classList.contains("active")
+      closeBtn.addEventListener(
+        "click",
+        () => (loginModal.style.display = "none")
       );
+      window.addEventListener("click", (e) => {
+        if (e.target === loginModal) loginModal.style.display = "none";
+      });
 
-      if (activeTab.dataset.type === "student") {
-        window.location.href = "student.html";
-      } else if (activeTab.dataset.type === "admin") {
-        window.location.href = "admin.html";
-      }
+      // --- 4. AUTHENTICATION LOGIC (Submit) ---
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        const fullname = fullnameInput.value.trim(); // Only for signup
+
+        const users = getUsers(); // Get current list (Student or Admin)
+
+        if (isLoginMode) {
+          // --- LOGIN PROCESS ---
+          const foundUser = users.find(
+            (u) => u.username === username && u.password === password
+          );
+
+          if (foundUser) {
+            alert(
+              `Login Successful! Welcome, ${foundUser.fullname || username}`
+            );
+
+            // Redirect based on role
+            if (currentType === "student") {
+              window.location.href = "student.html";
+            } else {
+              window.location.href = "admin.html";
+            }
+          } else {
+            alert("Invalid Username or Password. Please try again.");
+          }
+        } else {
+          // --- SIGNUP PROCESS ---
+
+          // 1. Check if user already exists
+          const exists = users.find((u) => u.username === username);
+          if (exists) {
+            alert("This Username/ID is already taken. Please choose another.");
+            return;
+          }
+
+          // 2. Save new user
+          const newUser = {
+            username: username,
+            password: password,
+            fullname: fullname,
+            email: emailInput.value,
+          };
+
+          saveUser(newUser);
+
+          alert("Registration Successful! Please Login now.");
+
+          // 3. Switch to login view automatically
+          isLoginMode = true;
+          updateUI();
+          // Pre-fill the username for convenience
+          usernameInput.value = username;
+        }
+      });
+
+      // --- 5. DEMO BUTTON LOGIC ---
+      demoBtn.addEventListener("click", () => {
+        if (!isLoginMode) return;
+
+        if (currentType === "student") {
+          usernameInput.value = "student123";
+          passwordInput.value = "123";
+        } else {
+          usernameInput.value = "admin123";
+          passwordInput.value = "123";
+        }
+
+        // Toggle reset button visibility
+        demoBtn.classList.add("hidden");
+        resetBtn.classList.remove("hidden");
+      });
+
+      resetBtn.addEventListener("click", () => {
+        loginForm.reset();
+        demoBtn.classList.remove("hidden");
+        resetBtn.classList.add("hidden");
+      });
     });
-
-    demoBtn.addEventListener("click", () => {
-      const activeTab = [...tabButtons].find((btn) =>
-        btn.classList.contains("active")
-      );
-
-      if (activeTab.dataset.type === "student") {
-        usernameInput.value = "student";
-        passwordInput.value = "123";
-      } else {
-        usernameInput.value = "admin";
-        passwordInput.value = "123";
-      }
-
-      demoBtn.classList.add("hidden");
-      resetBtn.classList.remove("hidden");
-    });
-
-    resetBtn.addEventListener("click", resetFormUI);
   }
 }
 
@@ -1127,6 +1306,7 @@ function renewBook(id) {
 // Initial load
 renderRecords(filteredData, currentPage);
 updateStats();
+
 
 
 
